@@ -21,7 +21,7 @@ class MessageProcessor {
     
     static var session: String = ""
     
-    fileprivate static let replWrapper = try! REPLWrapper(command: "/usr/bin/swift", prompt: "^\\s*\\d+>\\s*$", continuePrompt: "^\\s*\\d+\\.\\s*$")
+    fileprivate static let replWrapper = try! REPLWrapper(command: "/Library/Developer/Toolchains/swift-tensorflow-DEVELOPMENT-2018-04-22-a.xctoolchain/usr/bin/swift", prompt: "^\\s*\\d+>\\s*$", continuePrompt: "^\\s*\\d+\\.\\s*$")
     
     static func run(_ inMessageQueue: BlockingQueue<Message>, outMessageQueue: BlockingQueue<Message>) {
         while true {
@@ -69,7 +69,7 @@ class MessageProcessor {
                 
                 Logger.debug.print("Sending sourcekitten request -- \(r)")
                 
-                let completionItems = CodeCompletionItem.parse(response: r.send())
+                let completionItems = try! CodeCompletionItem.parse(response: r.send())
                 let matches = completionItems.flatMap { $0.descriptionKey }
                 let cursorEnd = content.cursorPosition
                 let cursorStartOffset = completionItems.first?.numBytesToErase ?? 0
