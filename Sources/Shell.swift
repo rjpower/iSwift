@@ -73,7 +73,7 @@ class Shell {
         posix(posix_spawn_file_actions_adddup2(&fileActions, fdSlave, STDOUT_FILENO))
         posix(posix_spawn_file_actions_adddup2(&fileActions, fdSlave, STDERR_FILENO))
         
-        let args = [launchPath]
+        let args = [launchPath, "-O"]
         
         let argv : UnsafeMutablePointer<UnsafeMutablePointer<Int8>?> = args.withUnsafeBufferPointer {
             let array : UnsafeBufferPointer<String> = $0
